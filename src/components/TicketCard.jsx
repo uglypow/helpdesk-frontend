@@ -28,7 +28,6 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
                     </div>
                 </div>
             </div>
-
             <div className="text-base font-semibold py-2">
                 {isEditingTitle ? (
                     <input
@@ -45,7 +44,7 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
                     </div>
                 )}
             </div>
-            <div className="flex gap-4 justify-between text-gray-700 text-sm">
+            <div className="text-gray-700 text-sm">
                 <div>{ticket.description}</div>
             </div>
         </div>

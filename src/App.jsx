@@ -63,7 +63,7 @@ function App() {
   return (
     <div>
       <TopBar />
-      <div className="flex divide m-20" style={{ alignItems: 'start' }}>
+      <div className="flex divide mt-20 items-start">
         {columns.map((column) => {// Map columns according to statuses
           return (
             <div

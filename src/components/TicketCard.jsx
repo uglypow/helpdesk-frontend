@@ -12,23 +12,27 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
     }
 
     return (
-        <div className="border rounded-lg p-2 m-2 bg-gray-50 w-50 ">
+        <div
+            draggable
+            onDragStart={(event) => event.dataTransfer.setData("id", ticket.id)}
+            className="rounded-xl p-2 m-3 bg-ticketColor"
+        >
             <div className="flex gap-2">
-                <div id="container" className="bg-gray-700">
+                <div id="container" className="bg-gray-400">
                     <div id="name">
                         {ticket.contact.charAt(0).toUpperCase()}
                     </div>
                 </div>
                 <div>
-                    <div className="text-base font-base">
+                    <div className="text-base font-base text-textColor">
                         {ticket.contact}
                     </div>
-                    <div className="text-xs text-gray-500 opacity-75">
+                    <div className="text-xs text-gray-500 opacity-75 text-textColor">
                         {moment(ticket.created_at).format('DD/MM/YYYY HH:mm:ss')}
                     </div>
                 </div>
             </div>
-            <div className="text-base font-semibold py-2">
+            <div className="text-base font-bold py-2 text-textColor">
                 {isEditingTitle ? (
                     <input
                         autoFocus
@@ -44,7 +48,7 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
                     </div>
                 )}
             </div>
-            <div className="text-gray-700 text-sm">
+            <div className="text-gray-700 text-sm text-textColor">
                 <div>{ticket.description}</div>
             </div>
         </div>

@@ -37,7 +37,7 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
                 {isEditingTitle ? (
                     <input
                         autoFocus
-                        className='w-full'
+                        className="w-full bg-ticketColor"
                         onBlur={() => setIsEditingTitle(false)}
                         value={ticket.title}
                         onChange={(event) => updateTicketTitle(ticket, event.target.value)}

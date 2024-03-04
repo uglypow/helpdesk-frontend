@@ -3,7 +3,7 @@ import KanbanBoard from './components/KanbanBoard';
 
 function App() {
 
-  document.body.style.overflow = "hidden"
+  document.body.style.overflowY = "hidden"
 
   return (
     <div>

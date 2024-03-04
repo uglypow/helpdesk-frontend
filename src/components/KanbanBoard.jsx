@@ -15,7 +15,7 @@ const KanbanBoard = () => {
             .getAll()
             .then(initialTickets => {
                 setTickets(initialTickets)
-
+                console.log('useEffect')
             })
     }, [])
 
@@ -37,10 +37,8 @@ const KanbanBoard = () => {
     }
 
     const updateTickets = (ticket) => {
-        console.log(ticket)
         const updatedTickets = tickets.map((t) => (t.id === ticket.id ? ticket : t))
-        console.log(updatedTickets)
-        
+
         ticketService
             .update(ticket.id, ticket)
             .then(() => {
@@ -61,7 +59,7 @@ const KanbanBoard = () => {
         const ticket = tickets.find((ticket) => ticket.id === id)
         const date = new Date()
         if (ticket) {
-            updateTickets({ ...ticket, status: status, updated_at: date})
+            updateTickets({ ...ticket, status: status, updated_at: date })
         }
     }
 
@@ -90,7 +88,8 @@ const KanbanBoard = () => {
                         onDragOver={(event) => event.preventDefault()}
                         onDragEnter={() => handleDragEnter(column.status)}
                         key={column.status}
-                        className={`flex-1 rounded-xl p-2 m-2 bg-black ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}                    >
+                        className={`flex-1 rounded-xl p-2 m-2 bg-black 
+                        ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}                    >
                         <div className="flex justify-between p-2">
                             <h2 className="text-xl p-2 capitalize font-bold text-textColor">
                                 {column.status} ({column.tickets.length})
@@ -99,10 +98,10 @@ const KanbanBoard = () => {
                                 createTicket={createTicket}
                                 status={column.status} />
                         </div>
-                        <div>
+                        <div className="overflow-auto max-h-[75vh] scrollbar-thin scrollbar.webkit">
                             {column.tickets.map((ticket) =>  // Map tickets in each column
                                 <TicketCard
-                                    key={ticket.title}
+                                    key={ticket.id}
                                     ticket={ticket}
                                     updateTicketTitle={updateTicketTitle}
                                     updateTickets={updateTickets} />

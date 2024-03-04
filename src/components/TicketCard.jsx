@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { useState } from 'react';
 
+
 const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
     const [isEditingTitle, setIsEditingTitle] = useState(false)
 
@@ -15,7 +16,7 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
         <div
             draggable
             onDragStart={(event) => event.dataTransfer.setData("id", ticket.id)}
-            className="rounded-xl p-2 m-3 bg-ticketColor hover:bg-gray-100 cursor-pointer"
+            className="rounded-xl p-2 m-3 bg-ticketColor hover:border-4 hover:border-blue-400 cursor-pointer"
         >
             <div className="flex gap-2">
                 <div id="container" className="bg-gray-400">
@@ -27,7 +28,7 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
                     <div className="text-base font-base text-textColor">
                         {ticket.contact}
                     </div>
-                    <div className="text-xs text-gray-500 opacity-75 text-textColor">
+                    <div className="text-xsopacity-75 text-textColor">
                         {moment(ticket.created_at).format('DD/MM/YYYY HH:mm:ss')}
                     </div>
                 </div>
@@ -48,7 +49,7 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
                     </div>
                 )}
             </div>
-            <div className="text-gray-700 text-sm text-textColor">
+            <div className="text-sm text-textColor">
                 <div>{ticket.description}</div>
             </div>
         </div>

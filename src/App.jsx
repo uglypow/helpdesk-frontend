@@ -63,31 +63,36 @@ function App() {
   return (
     <div>
       <TopBar />
-      <div className="flex divide mt-20 items-start">
-        {columns.map((column) => {// Map columns according to statuses
-          return (
-            <div
-              onDrop={(event) => { handleDrop(event, column.status) }}
-              onDragOver={(event) => event.preventDefault()}
-              onDragEnter={() => handleDragEnter(column.status)}
-              key={column.status}
-              className={`rounded-xl p-2 m-2 bg-black ${nowHoverOver === column.status ? 'bg-gray-100' : ''}`}
-            >
-              <h2 className="text-xl p-2 capitalize font-bold text-textColor">
-                {column.status} ({column.tickets.length})
-              </h2>
-              <div>
-                {column.tickets.map((ticket) =>  // Map tickets in each column
-                  <TicketCard key={ticket.id}
-                    ticket={ticket}
-                    updateTicketTitle={updateTicketTitle}
-                    updateTickets={updateTickets} />
-                )}
+        <div className="flex divide mt-20 items-start">
+          {columns.map((column) => {// Map columns according to statuses
+            return (
+              <div
+                onDrop={(event) => { handleDrop(event, column.status) }}
+                onDragOver={(event) => event.preventDefault()}
+                onDragEnter={() => handleDragEnter(column.status)}
+                key={column.status}
+                className={`flex-1 rounded-xl p-2 m-2 bg-black ${nowHoverOver === column.status ? 'bg-gray-100' : ''}`}
+              >
+                <div className="flex justify-between p-2">
+                  <h2 className="text-xl p-2 capitalize font-bold text-textColor">
+                    {column.status} ({column.tickets.length})
+                  </h2>
+                  <button className="text-textColor text-3xl hover:bg-gray-100 p-2 rounded">
+                    + 
+                  </button>
+                </div>
+                <div>
+                  {column.tickets.map((ticket) =>  // Map tickets in each column
+                    <TicketCard key={ticket.id}
+                      ticket={ticket}
+                      updateTicketTitle={updateTicketTitle}
+                      updateTickets={updateTickets} />
+                  )}
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
     </div>
   )
 }

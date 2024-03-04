@@ -15,7 +15,7 @@ const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
         <div
             draggable
             onDragStart={(event) => event.dataTransfer.setData("id", ticket.id)}
-            className="rounded-xl p-2 m-3 bg-ticketColor"
+            className="rounded-xl p-2 m-3 bg-ticketColor hover:bg-gray-100 cursor-pointer"
         >
             <div className="flex gap-2">
                 <div id="container" className="bg-gray-400">

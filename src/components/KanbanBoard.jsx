@@ -58,9 +58,9 @@ const KanbanBoard = () => {
         setNowHoverOver(null)
         const id = event.dataTransfer.getData('id')
         const ticket = tickets.find((ticket) => ticket.id === id)
-        const date = new Date()
+
         if (ticket) {
-            updateTickets({ ...ticket, status: status, updated_at: date })
+            updateTickets({ ...ticket, status: status, updated_at: new Date() })
         }
     }
 
@@ -96,13 +96,15 @@ const KanbanBoard = () => {
                                 {column.status} ({column.tickets.length})
                             </h2>
                             <div className="flex">
-                                <SortButton className="flex-1"/>
+                                <SortButton
+                                    tickets={tickets}
+                                    setTickets={setTickets} />
                                 <FormPopUpButton
                                     createTicket={createTicket}
                                     status={column.status} />
                             </div>
                         </div>
-                        <div className="overflow-auto max-h-[75vh] scrollbar-thin scrollbar.webkit">
+                        <div className="overflow-auto max-h-[70vh] scrollbar-thin scrollbar.webkit">
                             {column.tickets.map((ticket) =>  // Map tickets in each column
                                 <TicketCard
                                     key={ticket.id}

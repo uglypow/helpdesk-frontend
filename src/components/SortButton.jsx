@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SortIcon from '@mui/icons-material/Sort';
 
-const SortButton = () => {
+const SortButton = ({ tickets, setTickets }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -14,6 +14,20 @@ const SortButton = () => {
         setAnchorEl(null);
     };
 
+    const handleAscUpdateSort = () => {
+        console.log('unsorted data: ', tickets)
+        const sortedData = tickets.sort((a, b) => a.title.localeCompare(b.title));
+        console.log('sorted data: ', sortedData)
+        setTickets(sortedData)
+    }
+
+    
+    const handleAscCreateSort = (tickets) => {
+        console.log('unsorted data: ', tickets.map((t) => t.created_at))
+        const sortedData = tickets.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+        console.log('sorted data: ', sortedData.map((t) => t.created_at))
+    }
+
     return (
         <div>
             <Button
@@ -22,6 +36,7 @@ const SortButton = () => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                sx={{height: '100%', ':hover': { bgcolor: 'white' },}}
             >
                 <SortIcon />
             </Button>
@@ -34,9 +49,8 @@ const SortButton = () => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={() => handleAscCreateSort(tickets)}>Date created (Asc)</MenuItem>
+                <MenuItem onClick={() => handleAscUpdateSort(tickets)}>Date updated (Asc)</MenuItem>
             </Menu>
         </div>
     );

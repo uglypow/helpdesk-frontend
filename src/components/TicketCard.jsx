@@ -4,11 +4,10 @@ import { useState } from 'react';
 
 const TicketCard = ({ ticket, updateTicketTitle, updateTickets }) => {
     const [isEditingTitle, setIsEditingTitle] = useState(false)
-
     const handleOnEnter = (ticket, key) => {
         if (key === 'Enter') {
             setIsEditingTitle(false)
-            updateTickets(ticket)
+            updateTickets({...ticket, updated_at: new Date()})
         }
     }
 

@@ -8,6 +8,7 @@ import SortButton from './SortButton';
 const KanbanBoard = () => {
     const [tickets, setTickets] = useState([])
     const [nowHoverOver, setNowHoverOver] = useState(null)
+    const [toSort, setToSort] = useState(null)
 
     const statuses = ['pending', 'accepted', 'resolved', 'rejected']
 
@@ -16,7 +17,6 @@ const KanbanBoard = () => {
             .getAll()
             .then(initialTickets => {
                 setTickets(initialTickets)
-                console.log('useEffect')
             })
     }, [])
 
@@ -80,8 +80,27 @@ const KanbanBoard = () => {
         }
     })
 
+    if (toSort) {
+        const toSortColumn = columns.find((column) => column.status === toSort.status);
+        const sortedTickets = [...toSortColumn.tickets].sort(toSort.sortType);
+
+        console.log('sortedTickets', sortedTickets)
+
+        const updatedColumns = columns.map((column) => {
+            return {
+                ...column,
+                tickets: column.status === toSort.status ? sortedTickets : [...column.tickets]
+            };
+        });
+
+        console.log('updatedColumns', updatedColumns)
+
+        setToSort(null);
+        setTickets(updatedColumns.flatMap((column) => column.tickets));
+    }
+
     return (
-        <div className="flex divide m-5 items-start">
+        <div className="flex mt-20 items-start">
             {columns.map((column) => {
                 return (
                     <div
@@ -90,15 +109,16 @@ const KanbanBoard = () => {
                         onDragEnter={() => handleDragEnter(column.status)}
                         key={column.status}
                         className={`flex-1 rounded-xl p-2 m-2 bg-black 
-                        ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}>
+                        ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}
+                    >
                         <div className="flex justify-between p-2">
                             <h2 className="text-xl p-2 capitalize font-bold text-textColor">
                                 {column.status} ({column.tickets.length})
                             </h2>
                             <div className="flex">
                                 <SortButton
-                                    tickets={tickets}
-                                    setTickets={setTickets} />
+                                    status={column.status}
+                                    setToSort={setToSort} />
                                 <FormPopUpButton
                                     createTicket={createTicket}
                                     status={column.status} />

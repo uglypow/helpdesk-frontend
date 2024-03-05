@@ -3,6 +3,7 @@ import ticketService from '../services/tickets'
 import TicketCard from './TicketCard';
 import FormPopUpButton from './FormPopUpButton';
 import '../index.css'
+import SortButton from './SortButton';
 
 const KanbanBoard = () => {
     const [tickets, setTickets] = useState([])
@@ -80,7 +81,7 @@ const KanbanBoard = () => {
     })
 
     return (
-        <div className="flex divide mt-20 items-start">
+        <div className="flex divide m-5 items-start">
             {columns.map((column) => {
                 return (
                     <div
@@ -89,14 +90,17 @@ const KanbanBoard = () => {
                         onDragEnter={() => handleDragEnter(column.status)}
                         key={column.status}
                         className={`flex-1 rounded-xl p-2 m-2 bg-black 
-                        ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}                    >
+                        ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}>
                         <div className="flex justify-between p-2">
                             <h2 className="text-xl p-2 capitalize font-bold text-textColor">
                                 {column.status} ({column.tickets.length})
                             </h2>
-                            <FormPopUpButton
-                                createTicket={createTicket}
-                                status={column.status} />
+                            <div className="flex">
+                                <SortButton className="flex-1"/>
+                                <FormPopUpButton
+                                    createTicket={createTicket}
+                                    status={column.status} />
+                            </div>
                         </div>
                         <div className="overflow-auto max-h-[75vh] scrollbar-thin scrollbar.webkit">
                             {column.tickets.map((ticket) =>  // Map tickets in each column

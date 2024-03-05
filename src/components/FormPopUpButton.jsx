@@ -24,10 +24,9 @@ const FormPopUpButton = ({ createTicket, status }) => {
     const handleClose = () => {
         setOpen(false);
     }
-        return (
+    return (
         <ThemeProvider theme={darkTheme}>
-            <React.Fragment>
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button variant="text" onClick={handleClickOpen}>
                     <AddIcon />
                 </Button>
                 <Dialog
@@ -67,7 +66,6 @@ const FormPopUpButton = ({ createTicket, status }) => {
                             fullWidth
                             variant="standard"
                         />
-
                         <TextField
                             multiline  // Enables multiline mode
                             rows={4}
@@ -85,7 +83,6 @@ const FormPopUpButton = ({ createTicket, status }) => {
                         <Button type="submit">Create</Button>
                     </DialogActions>
                 </Dialog>
-            </React.Fragment>
         </ThemeProvider>
     );
 }

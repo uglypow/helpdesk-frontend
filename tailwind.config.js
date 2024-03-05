@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        textColor: '#a7b4bd',
-        ticketColor: '#22262a',
+        textColor: '#2d415d',
+        ticketColor: '#f8f4f4',
+        columnColor: '#f8f4f4'
       },
     },
   },
@@ -17,7 +18,7 @@ export default {
       const newUtilities = {
         ".scrollbar-thin" : {
           scrollbarWidth : "thin",
-          scrollbarColor : "#333b36 black"
+          scrollbarColor : "#c5c8d2 white"
         },
         ".scrollbar.webkit" : {
           "$::-webkit-scrollbar" : {

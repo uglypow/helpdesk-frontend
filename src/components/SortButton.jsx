@@ -4,13 +4,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SortIcon from '@mui/icons-material/Sort';
 import moment from 'moment';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
 
 const SortButton = ({ status, setToSort }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,14 +25,14 @@ const SortButton = ({ status, setToSort }) => {
 
     return (
         <div>
-            <ThemeProvider theme={darkTheme}>
+            <React.Fragment>
                 <Button
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
-                    sx={{ height: '100%', ':hover': { bgcolor: 'white' }, }}
+                    sx={{ height: '100%', ':hover': { bgcolor: '#d0d5da' }, }}
                 >
                     <SortIcon />
                 </Button>
@@ -59,7 +52,7 @@ const SortButton = ({ status, setToSort }) => {
                         Date updated (Asc)
                     </MenuItem>
                 </Menu>
-            </ThemeProvider>
+            </React.Fragment>
         </div>
     );
 }

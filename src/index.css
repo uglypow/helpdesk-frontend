@@ -2,20 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: #903c64;
-    margin: 0;
-    /* Remove default margin */
-    padding: 0;
-    /* Remove default padding */
-    min-height: 100vh;
-}
-
 #container {
     width: 50px;
     height: 50px;
     border-radius: 100px;
-    background-color: darkslateblue;
+    background-color: orange;
 }
 
 #name {

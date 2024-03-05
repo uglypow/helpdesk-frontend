@@ -4,6 +4,7 @@ import TicketCard from './TicketCard';
 import FormPopUpButton from './FormPopUpButton';
 import '../index.css'
 import SortButton from './SortButton';
+import { Circle } from '@mui/icons-material';
 
 const KanbanBoard = () => {
     const [tickets, setTickets] = useState([])
@@ -108,13 +109,16 @@ const KanbanBoard = () => {
                         onDragOver={(event) => event.preventDefault()}
                         onDragEnter={() => handleDragEnter(column.status)}
                         key={column.status}
-                        className={`flex-1 rounded-xl p-2 m-2 bg-black 
+                        className={`flex-1 rounded-xl p-2 m-2 shadow border bg-columnColor
                         ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}
                     >
-                        <div className="flex justify-between p-2">
-                            <h2 className="text-xl p-2 capitalize font-bold text-textColor">
-                                {column.status} ({column.tickets.length})
-                            </h2>
+                        <div className="flex justify-between p-2 ">
+                            <div className="flex items-center"> {/* Added a div for circle */}
+                                <Circle sx={{ color: getStatusColor(column.status), marginRight: '8px' }} />
+                                <h2 className="text-xl p-2 capitalize font-bold text-textColor">
+                                    {column.status} ({column.tickets.length})
+                                </h2>
+                            </div>
                             <div className="flex">
                                 <SortButton
                                     status={column.status}
@@ -138,6 +142,21 @@ const KanbanBoard = () => {
             })}
         </div>
     )
+}
+
+const getStatusColor = (status) => {
+    switch (status) {
+        case 'pending':
+            return 'orange'; // Set your desired color for 'pending'
+        case 'accepted':
+            return 'green'; // Set your desired color for 'accepted'
+        case 'resolved':
+            return 'blue'; // Set your desired color for 'resolved'
+        case 'rejected':
+            return 'red'; // Set your desired color for 'rejected'
+        default:
+            return 'gray'; // Default color for unknown status
+    }
 }
 
 export default KanbanBoard

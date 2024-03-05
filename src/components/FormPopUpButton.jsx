@@ -6,13 +6,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddIcon from '@mui/icons-material/Add';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
 
 const FormPopUpButton = ({ createTicket, status }) => {
     const [open, setOpen] = React.useState(false);
@@ -25,11 +18,11 @@ const FormPopUpButton = ({ createTicket, status }) => {
         setOpen(false);
     }
     return (
-        <ThemeProvider theme={darkTheme}>
+        <React.Fragment>
             <Button
                 variant="text"
                 onClick={handleClickOpen}
-                sx={{height: '100%', ':hover': { bgcolor: 'white' },}}>        
+                sx={{ height: '100%', ':hover': { bgcolor: '#d0d5da' }, }}>
                 <AddIcon />
             </Button>
             <Dialog
@@ -86,7 +79,8 @@ const FormPopUpButton = ({ createTicket, status }) => {
                     <Button type="submit">Create</Button>
                 </DialogActions>
             </Dialog>
-        </ThemeProvider>
+        </React.Fragment>
+
     );
 }
 

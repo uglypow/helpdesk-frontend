@@ -1,13 +1,14 @@
+import React from 'react';
 import TopBar from './components/TopBar';
 import KanbanBoard from './components/KanbanBoard';
 
 function App() {
 
   return (
-    <div>
+    <React.Fragment>
       <TopBar />
       <KanbanBoard />
-    </div>
+    </React.Fragment>
   )
 }
 

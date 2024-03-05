@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import ticketService from '../services/tickets'
 import TicketCard from './TicketCard';
+import TopBar from './TopBar';
 import FormPopUpButton from './FormPopUpButton';
 import '../index.css'
 import SortButton from './SortButton';
@@ -73,6 +74,7 @@ const KanbanBoard = () => {
         return
     }
 
+    // Create a column for each status
     const columns = statuses.map((status) => {
         const ticketsInColumn = tickets.filter((ticket) => ticket.status === status)
         return {
@@ -85,7 +87,7 @@ const KanbanBoard = () => {
         const toSortColumn = columns.find((column) => column.status === toSort.status);
         const sortedTickets = [...toSortColumn.tickets].sort(toSort.sortType);
 
-        console.log('sortedTickets', sortedTickets)
+        // console.log('sortedTickets', sortedTickets)
 
         const updatedColumns = columns.map((column) => {
             return {
@@ -94,53 +96,57 @@ const KanbanBoard = () => {
             };
         });
 
-        console.log('updatedColumns', updatedColumns)
+        // console.log('updatedColumns', updatedColumns)
 
         setToSort(null);
         setTickets(updatedColumns.flatMap((column) => column.tickets));
     }
 
     return (
-        <div className="flex mt-20 items-start">
-            {columns.map((column) => {
-                return (
-                    <div
-                        onDrop={(event) => { handleDrop(event, column.status) }}
-                        onDragOver={(event) => event.preventDefault()}
-                        onDragEnter={() => handleDragEnter(column.status)}
-                        key={column.status}
-                        className={`flex-1 rounded-xl p-2 m-2 shadow border bg-columnColor
-                        ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}
-                    >
-                        <div className="flex justify-between p-2 ">
-                            <div className="flex items-center"> {/* Added a div for circle */}
-                                <Circle sx={{ color: getStatusColor(column.status), marginRight: '8px' }} />
-                                <h2 className="text-xl p-2 capitalize font-bold text-textColor">
-                                    {column.status} ({column.tickets.length})
-                                </h2>
+        <div>
+            <TopBar />
+            <div className="flex mt-20 items-start">
+                {columns.map((column) => {
+                    return (
+                        <div
+                            onDrop={(event) => { handleDrop(event, column.status) }}
+                            onDragOver={(event) => event.preventDefault()}
+                            onDragEnter={() => handleDragEnter(column.status)}
+                            key={column.status}
+                            className={`flex-1 rounded-xl p-2 m-2 shadow border bg-columnColor
+                            ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}
+                        >
+                            <div className="flex justify-between p-2 ">
+                                <div className="flex items-center"> 
+                                    <Circle sx={{ color: getStatusColor(column.status), marginRight: '8px' }} />
+                                    <h2 className="text-xl p-2 capitalize font-bold text-textColor">
+                                        {column.status} ({column.tickets.length})
+                                    </h2>
+                                </div>
+                                <div className="flex">
+                                    <SortButton
+                                        status={column.status}
+                                        setToSort={setToSort} />
+                                    <FormPopUpButton
+                                        createTicket={createTicket}
+                                        status={column.status} />
+                                </div>
                             </div>
-                            <div className="flex">
-                                <SortButton
-                                    status={column.status}
-                                    setToSort={setToSort} />
-                                <FormPopUpButton
-                                    createTicket={createTicket}
-                                    status={column.status} />
+                            <div className="overflow-auto max-h-[70vh] scrollbar-thin scrollbar.webkit">
+                                {column.tickets.map((ticket) => 
+                                    <TicketCard
+                                        key={ticket.id}
+                                        ticket={ticket}
+                                        updateTicketTitle={updateTicketTitle}
+                                        updateTickets={updateTickets} />
+                                )}
                             </div>
                         </div>
-                        <div className="overflow-auto max-h-[70vh] scrollbar-thin scrollbar.webkit">
-                            {column.tickets.map((ticket) =>  // Map tickets in each column
-                                <TicketCard
-                                    key={ticket.id}
-                                    ticket={ticket}
-                                    updateTicketTitle={updateTicketTitle}
-                                    updateTickets={updateTickets} />
-                            )}
-                        </div>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </div>
+
     )
 }
 

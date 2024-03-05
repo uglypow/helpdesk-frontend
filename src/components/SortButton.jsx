@@ -48,8 +48,14 @@ const SortButton = ({ status, setToSort }) => {
                     <MenuItem onClick={() => handleSort((a, b) => moment(a.created_at).diff(moment(b.created_at)))}>
                         Date created (Asc)
                     </MenuItem>
+                    <MenuItem onClick={() => handleSort((a, b) => moment(b.created_at).diff(moment(a.created_at)))}>
+                        Date created (Desc)
+                    </MenuItem>
                     <MenuItem onClick={() => handleSort((a, b) => moment(a.updated_at).diff(moment(b.updated_at)))}>
                         Date updated (Asc)
+                    </MenuItem>
+                    <MenuItem onClick={() => handleSort((a, b) => moment(b.updated_at).diff(moment(a.updated_at)))}>
+                        Date updated (Desc)
                     </MenuItem>
                 </Menu>
             </React.Fragment>

@@ -8,14 +8,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddIcon from '@mui/icons-material/Add';
 
 const FormPopUpButton = ({ createTicket, status }) => {
-    const [open, setOpen] = React.useState(false);
+    const [formOpen, setFormOpen] = React.useState(false);
 
     const handleClickOpen = () => {
-        setOpen(true);
+        setFormOpen(true);
     }
 
     const handleClose = () => {
-        setOpen(false);
+        setFormOpen(false);
     }
     return (
         <React.Fragment>
@@ -26,7 +26,7 @@ const FormPopUpButton = ({ createTicket, status }) => {
                 <AddIcon />
             </Button>
             <Dialog
-                open={open}
+                open={formOpen}
                 onClose={handleClose}
                 PaperProps={{
                     component: 'form',

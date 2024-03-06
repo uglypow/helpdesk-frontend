@@ -114,20 +114,20 @@ const columns = [
     {
         field: 'title',
         headerName: 'Title',
-        flex: 1.5,
+        flex: 2,
         renderCell: renderCellExpand,
     },
     {
         field: 'description',
         headerName: 'Description',
-        flex: 3,
+        flex: 4,
         renderCell: renderCellExpand,
 
     },
     {
         field: 'contact',
         headerName: 'Contact',
-        flex: 1.5,
+        flex: 2,
         renderCell: renderCellExpand,
     },
     {

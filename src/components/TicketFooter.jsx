@@ -10,7 +10,7 @@ const TicketFooter = ({ ticket }) => {
                 `Last updated ${moment(ticket.updated_at).format('DD/MM/YYYY')}`
             )
             }
-        </div>
+        </div>        
     )
 }
 

@@ -10,7 +10,6 @@ const About = () => {
                 </div>
             </div>
         </>
-
     )
 }
 

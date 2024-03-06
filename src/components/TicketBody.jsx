@@ -37,7 +37,6 @@ const TicketBody = ({ ticket, updateTicketTitle, updateTickets }) => {
                 )}
             </div>
         </div>
-
     )
 }
 

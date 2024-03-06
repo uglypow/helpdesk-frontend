@@ -79,9 +79,8 @@ const FormPopUpButton = ({ createTicket, status }) => {
                     <Button type="submit">Create</Button>
                 </DialogActions>
             </Dialog>
-        </React.Fragment>
-
-    );
+        </React.Fragment>            
+    )
 }
 
 export default FormPopUpButton

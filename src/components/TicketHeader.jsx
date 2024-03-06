@@ -1,6 +1,6 @@
 import moment from "moment-timezone"
 
-const ticketHead = ({ ticket }) => {
+const TicketHeader = ({ ticket }) => {
     return (
         <div className="flex gap-2">
             <div id="container" className="bg-gray-400">
@@ -16,8 +16,8 @@ const ticketHead = ({ ticket }) => {
                     {moment(ticket.created_at).format('DD/MM/YYYY HH:mm:ss')}
                 </div>
             </div>
-        </div>
+        </div>     
     )
 }
 
-export default ticketHead
+export default TicketHeader

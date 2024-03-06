@@ -1,27 +1,21 @@
-import * as React from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import SortIcon from '@mui/icons-material/Sort';
-import moment from 'moment';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useNavigate } from 'react-router-dom';
 
-const SortButton = ({ status, setToSort }) => {
+const ViewButton = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const navigate = useNavigate();
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
-
-    const handleSort = (sortType) => {
-        const sortData = {
-            status: status,
-            sortType: sortType
-        }
-        setToSort(sortData)
-    }
 
     return (
         <div>
@@ -32,9 +26,9 @@ const SortButton = ({ status, setToSort }) => {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
-                    sx={{ height: '100%', ':hover': { bgcolor: '#d0d5da' }, }}
+                    sx={{ color: 'white', ':hover': { bgcolor: '#d0d5da' }, }}
                 >
-                    <SortIcon />
+                    view <ArrowDropDownIcon sx={{ color: 'white' }}/>
                 </Button>
                 <Menu
                     id="basic-menu"
@@ -45,22 +39,16 @@ const SortButton = ({ status, setToSort }) => {
                         'aria-labelledby': 'basic-button',
                     }}
                 >
-                    <MenuItem onClick={() => handleSort((a, b) => moment(a.created_at).diff(moment(b.created_at)))}>
-                        Date created (Asc)
+                    <MenuItem onClick={() => navigate("/")}>
+                        Kanban Board
                     </MenuItem>
-                    <MenuItem onClick={() => handleSort((a, b) => moment(b.created_at).diff(moment(a.created_at)))}>
-                        Date created (Desc)
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSort((a, b) => moment(a.updated_at).diff(moment(b.updated_at)))}>
-                        Date updated (Asc)
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSort((a, b) => moment(b.updated_at).diff(moment(a.updated_at)))}>
-                        Date updated (Desc)
+                    <MenuItem onClick={() => navigate("/table")}>
+                        Table
                     </MenuItem>
                 </Menu>
             </React.Fragment>
-        </div>        
+        </div>
     )
 }
 
-export default SortButton
+export default ViewButton

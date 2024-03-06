@@ -105,7 +105,7 @@ const KanbanBoard = () => {
     return (
         <div>
             <TopBar />
-            <div className="flex mt-20 items-start">
+            <div className="flex m-2 items-start overflow-auto max-h-100% scrollbar-thin scrollbar.webkit">
                 {columns.map((column) => {
                     return (
                         <div
@@ -116,7 +116,7 @@ const KanbanBoard = () => {
                             className={`flex-1 rounded-xl p-2 m-2 shadow border bg-columnColor
                             ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}
                         >
-                            <div className="flex justify-between p-2 ">
+                            <div className="flex justify-between p-2">
                                 <div className="flex items-center"> 
                                     <Circle sx={{ color: getStatusColor(column.status), marginRight: '8px' }} />
                                     <h2 className="text-xl p-2 capitalize font-bold text-textColor">
@@ -145,8 +145,7 @@ const KanbanBoard = () => {
                     )
                 })}
             </div>
-        </div>
-
+        </div>       
     )
 }
 

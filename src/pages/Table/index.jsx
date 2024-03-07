@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import ticketService from '../services/tickets'
-import TopBar from './TopBar';
-import moment from 'moment-timezone';
+import ticketService from '../../services/tickets'
+import TopBar from '../../components/TopBar';
+import { formatDate } from '../../utils/formatDate';
 import { Box, Popper, Paper, Typography } from '@mui/material';
+import CreateTicketButton from './CreateTicketButton';
+import UpdateTicketButton from './UpdateTicketButton';
 
 // Didn't intended to do this at first so most of the code are copied from MUI documentation
 
@@ -139,18 +141,20 @@ const columns = [
         field: 'created_at',
         headerName: 'Create',
         flex: 1,
-        valueFormatter: (params) => moment(params.value).format('DD/MM/YYYY'),
+        valueFormatter: (params) => formatDate(params.value),
     },
     {
         field: 'updated_at',
         headerName: 'Update',
         flex: 1,
-        valueFormatter: (params) => moment(params.value).format('DD/MM/YYYY'),
+        valueFormatter: (params) => formatDate(params.value),
     },
 ];
 
 const Table = () => {
     const [tickets, setTickets] = useState([])
+    const [selected, setSelected] = useState({})
+
 
     useEffect(() => {
         ticketService
@@ -160,9 +164,49 @@ const Table = () => {
             })
     }, [])
 
+    const createTicket = (ticket) => {
+        const newTicket = {
+            title: ticket.title,
+            description: ticket.description,
+            contact: ticket.contact,
+            status: ticket.status
+        }
+
+        console.log(newTicket)
+
+        ticketService
+            .create(newTicket)
+            .then(() => {
+                setTickets([...tickets, newTicket])
+            })
+    }
+
+    const updateTicket = (ticket) => {
+        const updatedTickets = tickets.map((t) => (t.id === ticket.id ? ticket : t))
+
+        ticketService
+            .update(ticket.id, ticket)
+            .then(() => {
+                setTickets(updatedTickets)
+            })
+    }
+
+    const handleSelectionChange = (selectedID) => {
+        if (!selectedID) {
+            return
+        }
+        console.log(selectedID)
+        console.log(tickets)
+        const selectedTicket = tickets.find((ticket) => ticket.id == selectedID)
+        console.log(selectedTicket)
+        setSelected(selectedTicket)
+    }
+
     return (
         <React.Fragment>
             <TopBar />
+            <CreateTicketButton createTicket={createTicket} />
+            <UpdateTicketButton ticket={selected} updateTicket={updateTicket} />
             <div style={{ width: '' }}>
                 <DataGrid
                     rows={tickets}
@@ -173,6 +217,7 @@ const Table = () => {
                         },
                     }}
                     pageSizeOptions={[5, 10]}
+                    onRowSelectionModelChange={((params) => handleSelectionChange(params))}
                 />
             </div>
         </React.Fragment>

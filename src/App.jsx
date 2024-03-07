@@ -1,8 +1,8 @@
 import React from 'react';
-import KanbanBoard from './components/KanbanBoard';
-import About from './components/About';
+import KanbanBoard from './pages/KanbanBoard';
+import Table from './pages/Table';
+import About from './pages/About';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Table from './components/Table';
 
 function App() {
 

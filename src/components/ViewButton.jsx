@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,7 +6,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router-dom';
 
 const ViewButton = () => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
 
@@ -18,8 +18,7 @@ const ViewButton = () => {
     };
 
     return (
-        <div>
-            <React.Fragment>
+            <>
                 <Button
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}
@@ -46,8 +45,8 @@ const ViewButton = () => {
                         Table
                     </MenuItem>
                 </Menu>
-            </React.Fragment>
-        </div>
+            </>
+
     )
 }
 

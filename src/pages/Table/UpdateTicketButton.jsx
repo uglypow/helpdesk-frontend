@@ -1,14 +1,23 @@
-import React from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import AddIcon from '@mui/icons-material/Add';
+import MenuItem from '@mui/material/MenuItem';
 
-const FormPopUpButton = ({ createTicket, status }) => {
-    const [formOpen, setFormOpen] = React.useState(false);
+const statusOptions = [
+    { value: 'pending', label: 'Pending' },
+    { value: 'accepted', label: 'Accepted' },
+    { value: 'resolved', label: 'Resolved' },
+    { value: 'rejected', label: 'Rejected' },
+];
+
+const UpdateTicketButton = ({ ticket, updateTicket, }) => {
+    const [formOpen, setFormOpen] = useState(false);
+    // eslint-disable-next-line no-unused-vars
+    const [status, setStatus] = useState('')
 
     const handleClickOpen = () => {
         setFormOpen(true);
@@ -17,13 +26,18 @@ const FormPopUpButton = ({ createTicket, status }) => {
     const handleClose = () => {
         setFormOpen(false);
     }
+
+    const handleStatusChange = (event) => {
+        setStatus(event.target.value);
+    };
+
     return (
-        <React.Fragment>
+        <>
             <Button
-                variant="text"
+                variant="contained"
                 onClick={handleClickOpen}
-                sx={{ height: '100%', ':hover': { bgcolor: '#d0d5da' }, }}>
-                <AddIcon />
+                sx={{ height: '100%', margin: '10px', ':hover': { bgcolor: '#d0d5da' }, }}>
+                Update
             </Button>
             <Dialog
                 open={formOpen}
@@ -34,12 +48,13 @@ const FormPopUpButton = ({ createTicket, status }) => {
                         event.preventDefault();
                         const formData = new FormData(event.currentTarget);
                         const formJson = Object.fromEntries(formData.entries());
-                        createTicket(formJson, status);
+                        const updatedTicket = { ...ticket, ...formJson, updated_at: new Date() }
+                        updateTicket(updatedTicket);
                         handleClose();
                     },
                 }}
             >
-                <DialogTitle>Create Ticket</DialogTitle>
+                <DialogTitle>Update Ticket</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
@@ -51,6 +66,7 @@ const FormPopUpButton = ({ createTicket, status }) => {
                         type="text"
                         fullWidth
                         variant="standard"
+                        defaultValue={ticket.title}
                     />
                     <TextField
                         required
@@ -61,6 +77,7 @@ const FormPopUpButton = ({ createTicket, status }) => {
                         type="email"
                         fullWidth
                         variant="standard"
+                        defaultValue={ticket.contact}
                     />
                     <TextField
                         multiline  // Enables multiline mode
@@ -72,15 +89,34 @@ const FormPopUpButton = ({ createTicket, status }) => {
                         type="text"
                         fullWidth
                         variant="standard"
+                        defaultValue={ticket.description}
                     />
+                    <TextField
+                        required
+                        margin="dense"
+                        id="status"
+                        name="status"
+                        label="Status"
+                        fullWidth
+                        variant="standard"
+                        select
+                        defaultValue={ticket.status}
+                        onChange={handleStatusChange}
+                    >
+                        {statusOptions.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit">Create</Button>
+                    <Button type="submit">Update</Button>
                 </DialogActions>
             </Dialog>
-        </React.Fragment>            
+        </>
     )
 }
 
-export default FormPopUpButton
+export default UpdateTicketButton

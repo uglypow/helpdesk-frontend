@@ -1,4 +1,4 @@
-import TopBar from "./TopBar"
+import TopBar from "../../components/TopBar"
 
 const About = () => {
     return (

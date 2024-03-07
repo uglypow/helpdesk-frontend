@@ -4,7 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-const TicketEditForm = ({ ticket, formOpen, handleClose, updateTickets }) => {
+const TicketEditForm = ({ ticket, formOpen, handleClose, updateTicket }) => {
 
     return (
         <Dialog
@@ -16,8 +16,8 @@ const TicketEditForm = ({ ticket, formOpen, handleClose, updateTickets }) => {
                     event.preventDefault();
                     const formData = new FormData(event.currentTarget);
                     const formJson = Object.fromEntries(formData.entries());
-                    const updateTicket = {...ticket, ...formJson, updated_at: new Date()}
-                    updateTickets(updateTicket);
+                    const updatedTicket = {...ticket, ...formJson, updated_at: new Date()}
+                    updateTicket(updatedTicket);
                     handleClose();
                 },
             }}

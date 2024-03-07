@@ -1,4 +1,4 @@
-import moment from "moment-timezone"
+import { formatDateTime } from "../../utils/formatDate"
 
 const TicketHeader = ({ ticket }) => {
     return (
@@ -13,7 +13,7 @@ const TicketHeader = ({ ticket }) => {
                     {ticket.contact}
                 </div>
                 <div className="text-xsopacity-75 text-textColor">
-                    {moment(ticket.created_at).format('DD/MM/YYYY HH:mm:ss')}
+                    {formatDateTime(ticket.created_at)}
                 </div>
             </div>
         </div>     

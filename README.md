@@ -8,7 +8,7 @@ https://github.com/uglypow/helpdesk-backend
 ## Setting up
 To run this locally please follow the following steps
 
-1. Clone from git hub repository
+1. Clone from github repository
 
 ```
 git clone https://github.com/uglypow/helpdesk-frontend.git

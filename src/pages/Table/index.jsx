@@ -4,107 +4,11 @@ import { DataGrid } from '@mui/x-data-grid';
 import ticketService from '../../services/tickets'
 import TopBar from '../../components/TopBar';
 import { formatDate } from '../../utils/formatDate';
-import { Box, Popper, Paper, Typography } from '@mui/material';
 import CreateTicketButton from './CreateTicketButton';
 import UpdateTicketButton from './UpdateTicketButton';
+import GridCellExpand from './GridCellExpand';
 
 // Didn't intended to do this at first so most of the code are copied from MUI documentation
-
-function isOverflown(element) {
-    return (
-        element.scrollHeight > element.clientHeight ||
-        element.scrollWidth > element.clientWidth
-    );
-}
-
-const GridCellExpand = React.memo(function GridCellExpand(props) {
-    const { width, value } = props;
-    const wrapper = React.useRef(null);
-    const cellDiv = React.useRef(null);
-    const cellValue = React.useRef(null);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [showFullCell, setShowFullCell] = React.useState(false);
-    const [showPopper, setShowPopper] = React.useState(false);
-
-    const handleMouseEnter = () => {
-        const isCurrentlyOverflown = isOverflown(cellValue.current);
-        setShowPopper(isCurrentlyOverflown);
-        setAnchorEl(cellDiv.current);
-        setShowFullCell(true);
-    };
-
-    const handleMouseLeave = () => {
-        setShowFullCell(false);
-    };
-
-    React.useEffect(() => {
-        if (!showFullCell) {
-            return undefined;
-        }
-
-        function handleKeyDown(nativeEvent) {
-            // IE11, Edge (prior to using Bink?) use 'Esc'
-            if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
-                setShowFullCell(false);
-            }
-        }
-
-        document.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [setShowFullCell, showFullCell]);
-
-    return (
-        <Box
-            ref={wrapper}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            sx={{
-                alignItems: 'center',
-                lineHeight: '24px',
-                width: '100%',
-                height: '100%',
-                position: 'relative',
-                display: 'flex',
-            }}
-        >
-            <Box
-                ref={cellDiv}
-                sx={{
-                    height: '100%',
-                    width,
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                }}
-            />
-            <Box
-                ref={cellValue}
-                sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-            >
-                {value}
-            </Box>
-            {showPopper && (
-                <Popper
-                    open={showFullCell && anchorEl !== null}
-                    anchorEl={anchorEl}
-                    style={{ width, marginLeft: -17 }}
-                >
-                    <Paper
-                        elevation={1}
-                        style={{ minHeight: wrapper.current.offsetHeight - 3 }}
-                    >
-                        <Typography variant="body2" style={{ padding: 8 }}>
-                            {value}
-                        </Typography>
-                    </Paper>
-                </Popper>
-            )}
-        </Box>
-    );
-});
 
 function renderCellExpand(params) {
     return (
@@ -153,7 +57,7 @@ const columns = [
 
 const Table = () => {
     const [tickets, setTickets] = useState([])
-    const [selected, setSelected] = useState({})
+    const [selected, setSelected] = useState(null)
 
 
     useEffect(() => {
@@ -196,10 +100,8 @@ const Table = () => {
         if (!selectedID) {
             return
         }
-        console.log(selectedID)
-        console.log(tickets)
         const selectedTicket = tickets.find((ticket) => ticket.id == selectedID)
-        console.log(selectedTicket)
+        // console.log(selectedTicket)
         setSelected(selectedTicket)
     }
 
@@ -207,7 +109,7 @@ const Table = () => {
         <React.Fragment>
             <TopBar />
             <CreateTicketButton createTicket={createTicket} />
-            <UpdateTicketButton ticket={selected} updateTicket={updateTicket} />
+            {selected ? <UpdateTicketButton ticket={selected} updateTicket={updateTicket} /> : null}
             <div style={{ width: '' }}>
                 <DataGrid
                     rows={tickets}

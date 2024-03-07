@@ -10,6 +10,7 @@ const useTickets = () => {
             .then(initialTickets => {
                 setTickets(initialTickets)
             })
+            .catch(error => console.log(error.message))
     }, [])
 
     const createTicket = (ticket) => {
@@ -27,6 +28,7 @@ const useTickets = () => {
             .then((createdTicket) => {
                 setTickets((prevTickets) => [...prevTickets, createdTicket]);
             })
+            .catch(error => console.log(error.message))
     }
 
     const updateTicket = (ticket) => {
@@ -38,6 +40,7 @@ const useTickets = () => {
             .then(() => {
                 setTickets(updatedTickets)
             })
+            .catch(error => console.log(error.message))
     }
 
     return { tickets, setTickets, createTicket, updateTicket };

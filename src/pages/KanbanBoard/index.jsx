@@ -5,7 +5,7 @@ import Column from './Column';
 import fetchTickets from '../../services/fetchTickets'
 
 const KanbanBoard = () => {
-    const { tickets, setTickets,createTicket, updateTicket } = fetchTickets();
+    const { tickets, setTickets, createTicket, updateTicket } = fetchTickets();
     const [nowHoverOver, setNowHoverOver] = useState(null)
     const [toSort, setToSort] = useState(null)
 

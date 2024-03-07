@@ -3,7 +3,7 @@ import { formatDateTime } from "../../utils/formatDate"
 const TicketHeader = ({ ticket }) => {
     return (
         <div className="flex gap-2">
-            <div id="container" className="bg-gray-400">
+            <div id="container">
                 <div id="name">
                     {ticket.contact.charAt(0).toUpperCase()}
                 </div>
@@ -16,7 +16,7 @@ const TicketHeader = ({ ticket }) => {
                     {formatDateTime(ticket.created_at)}
                 </div>
             </div>
-        </div>     
+        </div>
     )
 }
 

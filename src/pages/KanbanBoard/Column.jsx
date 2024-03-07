@@ -22,7 +22,7 @@ const Column = ({ column, createTicket, setToSort, updateTicket }) => {
                         createTicket={createTicket} />
                 </div>
             </div>
-            <div className="overflow-auto max-h-[70vh] scrollbar-thin scrollbar.webkit">
+            <div className="overflow-auto max-h-[74vh] scrollbar-thin scrollbar.webkit">
                 {column.tickets.map((ticket) =>
                     <TicketCard
                         key={ticket.id}

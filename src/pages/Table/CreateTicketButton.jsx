@@ -18,7 +18,6 @@ const CreateTicketButton = ({ createTicket }) => {
     const [formOpen, setFormOpen] = useState(false);
     const [status, setStatus] = useState('');
 
-
     const handleClickOpen = () => {
         setFormOpen(true);
     }

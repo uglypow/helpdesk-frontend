@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import ticketService from '../../services/tickets'
 import TopBar from '../../components/TopBar';
 import { formatDate } from '../../utils/formatDate';
 import CreateTicketButton from './CreateTicketButton';
 import UpdateTicketButton from './UpdateTicketButton';
 import GridCellExpand from './GridCellExpand';
+import fetchTickets from '../../services/fetchTickets'
 
 // Didn't intended to do this at first so most of the code are copied from MUI documentation
 
@@ -56,45 +56,8 @@ const columns = [
 ];
 
 const Table = () => {
-    const [tickets, setTickets] = useState([])
+    const { tickets, createTicket, updateTicket } = fetchTickets();
     const [selected, setSelected] = useState(null)
-
-
-    useEffect(() => {
-        ticketService
-            .getAll()
-            .then(initialTickets => {
-                setTickets(initialTickets)
-            })
-    }, [])
-
-    const createTicket = (ticket) => {
-        const newTicket = {
-            title: ticket.title,
-            description: ticket.description,
-            contact: ticket.contact,
-            status: ticket.status
-        }
-
-        console.log(newTicket)
-
-        ticketService
-            .create(newTicket)
-            .then((createdTicket) => {
-                setTickets((prevTickets) => [...prevTickets, createdTicket]);
-            })
-    }
-
-    const updateTicket = (ticket) => {
-        const newTicket = { ...ticket, updated_at: new Date() }
-        const updatedTickets = tickets.map((t) => (t.id === newTicket.id ? newTicket : t))
-
-        ticketService
-            .update(newTicket.id, newTicket)
-            .then(() => {
-                setTickets(updatedTickets)
-            })
-    }
 
     const handleSelectionChange = (selectedID) => {
         if (!selectedID) {

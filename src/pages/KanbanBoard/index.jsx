@@ -1,51 +1,15 @@
-import { useState, useEffect } from 'react'
-import ticketService from '../../services/tickets'
+import { useState } from 'react'
 import TopBar from '../../components/TopBar';
 import '../../index.css'
 import Column from './Column';
+import fetchTickets from '../../services/fetchTickets'
 
 const KanbanBoard = () => {
-    const [tickets, setTickets] = useState([])
+    const { tickets, setTickets,createTicket, updateTicket } = fetchTickets();
     const [nowHoverOver, setNowHoverOver] = useState(null)
     const [toSort, setToSort] = useState(null)
 
     const statuses = ['pending', 'accepted', 'resolved', 'rejected']
-
-    useEffect(() => {
-        ticketService
-            .getAll()
-            .then(initialTickets => {
-                setTickets(initialTickets)
-            })
-    }, [])
-
-    const createTicket = (ticket, status) => {
-        const newTicket = {
-            title: ticket.title,
-            description: ticket.description,
-            contact: ticket.contact,
-            status: status
-        }
-
-        console.log(newTicket)
-
-        ticketService
-            .create(newTicket)
-            .then((createdTicket) => {
-                setTickets((prevTickets) => [...prevTickets, createdTicket]);
-            })
-    }
-
-    const updateTicket = (ticket) => {
-        const newTicket = { ...ticket, updated_at: new Date() }
-        const updatedTickets = tickets.map((t) => (t.id === newTicket.id ? newTicket : t))
-
-        ticketService
-            .update(newTicket.id, newTicket)
-            .then(() => {
-                setTickets(updatedTickets)
-            })
-    }
 
     const handleDrop = (event, status) => {
         event.preventDefault()

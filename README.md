@@ -1,3 +1,5 @@
+**_The main page of back-end can also display the same page as this does. The purpose of this repository is only to editing and testing the front-end. So It is not necessary to run both back-end and front-end at the same time_**
+
 #### Deployment using fly.io
 https://helpdesk-support-ticket.fly.dev/
 
@@ -30,3 +32,4 @@ npm run dev
 ```
 
 **_You need to open the server by running helpdesk-backend in order to actually displaying the data_**
+

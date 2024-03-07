@@ -31,16 +31,17 @@ const KanbanBoard = () => {
 
         ticketService
             .create(newTicket)
-            .then(() => {
-                setTickets([...tickets, newTicket])
+            .then((createdTicket) => {
+                setTickets((prevTickets) => [...prevTickets, createdTicket]);
             })
     }
 
     const updateTicket = (ticket) => {
-        const updatedTickets = tickets.map((t) => (t.id === ticket.id ? ticket : t))
+        const newTicket = { ...ticket, updated_at: new Date() }
+        const updatedTickets = tickets.map((t) => (t.id === newTicket.id ? newTicket : t))
 
         ticketService
-            .update(ticket.id, ticket)
+            .update(newTicket.id, newTicket)
             .then(() => {
                 setTickets(updatedTickets)
             })
@@ -53,7 +54,7 @@ const KanbanBoard = () => {
         const ticket = tickets.find((ticket) => ticket.id === id)
 
         if (ticket) {
-            updateTicket({ ...ticket, status: status, updated_at: new Date() })
+            updateTicket({ ...ticket, status: status })
         }
     }
 
@@ -111,7 +112,7 @@ const KanbanBoard = () => {
                                 column={column}
                                 createTicket={createTicket}
                                 setToSort={setToSort}
-                                updateTickets={updateTicket} />
+                                updateTicket={updateTicket} />
                         </div>
                     )
                 })}

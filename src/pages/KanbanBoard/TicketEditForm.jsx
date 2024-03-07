@@ -16,7 +16,7 @@ const TicketEditForm = ({ ticket, formOpen, handleClose, updateTicket }) => {
                     event.preventDefault();
                     const formData = new FormData(event.currentTarget);
                     const formJson = Object.fromEntries(formData.entries());
-                    const updatedTicket = {...ticket, ...formJson, updated_at: new Date()}
+                    const updatedTicket = {...ticket, ...formJson}
                     updateTicket(updatedTicket);
                     handleClose();
                 },

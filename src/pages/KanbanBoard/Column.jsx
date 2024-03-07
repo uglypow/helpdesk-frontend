@@ -3,7 +3,7 @@ import SortButton from './SortButton';
 import { Circle } from '@mui/icons-material';
 import TicketCard from "./TicketCard"
 
-const Column = ({ column, createTicket, setToSort, updateTickets }) => {
+const Column = ({ column, createTicket, setToSort, updateTicket }) => {
     return (
         <>
             <div className="flex justify-between p-2">
@@ -27,7 +27,7 @@ const Column = ({ column, createTicket, setToSort, updateTickets }) => {
                     <TicketCard
                         key={ticket.id}
                         ticket={ticket}
-                        updateTickets={updateTickets} />
+                        updateTickets={updateTicket} />
                 )}
             </div>
         </>

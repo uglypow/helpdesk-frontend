@@ -1,7 +1,6 @@
 import { formatTime, formatDate, isToday } from "../../utils/formatDate"
 
 const TicketBody = ({ ticket }) => {
-
     return (
         <>
             <div className="text-base font-bold py-2 text-textColor">

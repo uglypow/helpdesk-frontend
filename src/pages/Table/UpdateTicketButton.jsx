@@ -14,7 +14,7 @@ const statusOptions = [
     { value: 'rejected', label: 'Rejected' },
 ];
 
-const UpdateTicketButton = ({ ticket, updateTicket, }) => {
+const UpdateTicketButton = ({ ticket, updateTicket, setSelected}) => {
     const [formOpen, setFormOpen] = useState(false);
     // eslint-disable-next-line no-unused-vars
     const [status, setStatus] = useState('')
@@ -48,7 +48,8 @@ const UpdateTicketButton = ({ ticket, updateTicket, }) => {
                         event.preventDefault();
                         const formData = new FormData(event.currentTarget);
                         const formJson = Object.fromEntries(formData.entries());
-                        const updatedTicket = { ...ticket, ...formJson, updated_at: new Date() }
+                        const updatedTicket = { ...ticket, ...formJson}
+                        setSelected(updatedTicket);
                         updateTicket(updatedTicket);
                         handleClose();
                     },
@@ -80,7 +81,7 @@ const UpdateTicketButton = ({ ticket, updateTicket, }) => {
                         defaultValue={ticket.contact}
                     />
                     <TextField
-                        multiline  // Enables multiline mode
+                        multiline
                         rows={4}
                         margin="dense"
                         id="description"

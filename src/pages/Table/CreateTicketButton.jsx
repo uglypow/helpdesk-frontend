@@ -48,7 +48,7 @@ const CreateTicketButton = ({ createTicket }) => {
                         event.preventDefault();
                         const formData = new FormData(event.currentTarget);
                         const formJson = Object.fromEntries(formData.entries());
-                        createTicket(formJson, status);
+                        createTicket(formJson);
                         handleClose();
                     },
                 }}

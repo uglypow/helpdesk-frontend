@@ -62,24 +62,22 @@ const KanbanBoard = () => {
         <>
             <TopBar />
             <div className="flex m-2 items-start overflow-auto scrollbar-thin scrollbar.webkit">
-                {columns.map((column) => {
-                    return (
-                        <div
-                            onDrop={(event) => { handleDrop(event, column.status) }}
-                            onDragOver={(event) => event.preventDefault()}
-                            onDragEnter={() => handleDragEnter(column.status)}
-                            key={column.status}
-                            className={`flex-1 rounded-xl p-2 m-2 shadow border bg-columnColor 
-                            ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}
-                        >
-                            <Column
-                                column={column}
-                                createTicket={createTicket}
-                                setToSort={setToSort}
-                                updateTicket={updateTicket} />
-                        </div>
-                    )
-                })}
+                {columns.map((column) => (
+                    <div
+                        onDrop={(event) => { handleDrop(event, column.status) }}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDragEnter={() => handleDragEnter(column.status)}
+                        key={column.status}
+                        className={`flex-1 rounded-xl p-2 m-2 shadow border bg-columnColor 
+                        ${nowHoverOver === column.status ? "border-4 border-blue-400" : ''}`}
+                    >
+                        <Column
+                            column={column}
+                            createTicket={createTicket}
+                            setToSort={setToSort}
+                            updateTicket={updateTicket} />
+                    </div>
+                ))}
             </div>
         </>
     )

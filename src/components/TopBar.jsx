@@ -1,5 +1,5 @@
 import ViewButton from './ViewButton';
-import { AppBar, Toolbar, Button, Stack } from '@mui/material';
+import { AppBar, Toolbar, Button, } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const TopBar = () => {
@@ -12,15 +12,13 @@ const TopBar = () => {
                     Helpdesk Support
                     <ViewButton />
                 </div>
-                <Stack>
-                    <Button
-                        sx={{ bgcolor: 'white', color: 'black', '&:hover': { color: 'white' } }}
-                        variant='contained'
-                        onClick={() => { navigate("/about") }}
-                    >
-                        About
-                    </Button>
-                </Stack>
+                <Button
+                    sx={{ bgcolor: 'white', color: 'black', '&:hover': { color: 'white' } }}
+                    variant='contained'
+                    onClick={() => { navigate("/about") }}
+                >
+                    About
+                </Button>
             </Toolbar>
         </AppBar>
     )

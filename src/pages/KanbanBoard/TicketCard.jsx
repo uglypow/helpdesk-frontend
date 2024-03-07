@@ -23,7 +23,7 @@ const TicketCard = ({ ticket, updateTicket }) => {
                 className="rounded-xl p-2 m-3 bg-white border-4 hover:border-blue-400 cursor-pointer"
                 onClick={handleClickOpen}>
                 <TicketHeader ticket={ticket} />
-                <TicketBody ticket={ticket}/>
+                <TicketBody ticket={ticket} />
             </div>
             <TicketEditForm
                 ticket={ticket}

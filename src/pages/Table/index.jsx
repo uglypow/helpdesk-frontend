@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import TopBar from '../../components/TopBar';
@@ -7,8 +6,6 @@ import CreateTicketButton from './CreateTicketButton';
 import UpdateTicketButton from './UpdateTicketButton';
 import GridCellExpand from './GridCellExpand';
 import fetchTickets from '../../services/fetchTickets'
-
-// Didn't intended to do this at first so most of the code are copied from MUI documentation
 
 function renderCellExpand(params) {
     return (
@@ -62,17 +59,18 @@ const Table = () => {
     const handleSelectionChange = (selectedID) => {
         if (!selectedID) {
             return
-        }
+        } 
+        
         const selectedTicket = tickets.find((ticket) => ticket.id == selectedID)
         // console.log(selectedTicket)
         setSelected(selectedTicket)
     }
 
     return (
-        <React.Fragment>
+        <>
             <TopBar />
             <CreateTicketButton createTicket={createTicket} />
-            {selected ? <UpdateTicketButton ticket={selected} updateTicket={updateTicket} /> : null}
+            {selected ? <UpdateTicketButton ticket={selected} updateTicket={updateTicket} setSelected={setSelected}/> : null}
             <div style={{ width: '' }}>
                 <DataGrid
                     rows={tickets}
@@ -83,10 +81,10 @@ const Table = () => {
                         },
                     }}
                     pageSizeOptions={[5, 10]}
-                    onRowSelectionModelChange={((params) => handleSelectionChange(params))}
+                    onRowSelectionModelChange={((selectedID) => handleSelectionChange(selectedID))}
                 />
             </div>
-        </React.Fragment>
+        </>
     )
 }
 

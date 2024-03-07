@@ -27,7 +27,7 @@ const Column = ({ column, createTicket, setToSort, updateTicket }) => {
                     <TicketCard
                         key={ticket.id}
                         ticket={ticket}
-                        updateTickets={updateTicket} />
+                        updateTicket={updateTicket} />
                 )}
             </div>
         </>

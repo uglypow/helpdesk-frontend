@@ -17,6 +17,7 @@ const CreateTicketButton = ({ status, createTicket }) => {
     const handleClose = () => {
         setFormOpen(false);
     }
+
     return (
         <>
             <Button
@@ -34,7 +35,7 @@ const CreateTicketButton = ({ status, createTicket }) => {
                         event.preventDefault();
                         const formData = new FormData(event.currentTarget);
                         const formJson = Object.fromEntries(formData.entries());
-                        createTicket(formJson, status);
+                        createTicket({ ...formJson, status: status });
                         handleClose();
                     },
                 }}
@@ -79,7 +80,7 @@ const CreateTicketButton = ({ status, createTicket }) => {
                     <Button type="submit">Create</Button>
                 </DialogActions>
             </Dialog>
-        </>            
+        </>
     )
 }
 
